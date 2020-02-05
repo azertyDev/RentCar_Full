@@ -22,12 +22,14 @@ mongoose.connect(config.DATABASE, {
 
 // Route files
 const users = require('../server/routes/user');
+const login = require('../server/routes/login');
 
 // Middlewares
 app.use(logger('dev'));
 app.use(bodyParser.json());
 // Routes
 app.use('/users', users);
+app.use('/login', login);
 
 // Catch 404 errors and forward them to Error handler
 app.use((req, res, next) => {
