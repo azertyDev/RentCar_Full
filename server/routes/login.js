@@ -3,7 +3,7 @@ const router = express.Router();
 const LoginController = require('../controllers/login');
 
 
-router.route('/login')
+router.route('/')
     .get(LoginController.login);
 
 
