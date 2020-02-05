@@ -4,10 +4,11 @@ const Schema = mongoose.Schema;
 const carSchema = new Schema ({
     model: String,
     cost: String,
-    user: [{
+    seller: [{
         type: Schema.Types.ObjectId,
         ref: 'user'
-    }]
+    }],
+    token: String
 })
 
 const Car = mongoose.model('car', carSchema);

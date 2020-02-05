@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const logger = require('morgan');
 const bodyParser = require('body-parser');
 const config = require('./config/config').get(process.env.NODE_ENV);
 const port = process.env.PORT || 3000;
@@ -21,7 +22,6 @@ mongoose.connect(config.DATABASE, {
 
 // Route files
 const users = require('../server/routes/user');
-
 
 // Middlewares
 app.use(logger('dev'));
