@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const config = require('./config/config').get(process.env.NODE_ENV);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 // Connect to MongoDB server
 mongoose.Promise = global.Promise;

@@ -39,7 +39,7 @@ module.exports = {
         const { userId } = req.params;
         const user = await User.findById( userId ).populate('cars');
         console.log('UserCars:', user);
-        res.status(200).json(user.cars);
+        res.status(200).json(user);
     }, 
     
     newUserCars: async (req, res, next) => {
