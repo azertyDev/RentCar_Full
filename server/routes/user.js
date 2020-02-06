@@ -16,7 +16,7 @@ router.route('/:userId')
 // /users/:userId/cars
 router.route('/:userId/cars')
     .get(UsersController.getUserCars)
-    .post(UsersController.newUserCars)
+    .post(UsersController.newUserCars);
 
 
 module.exports = router;
