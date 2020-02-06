@@ -6,9 +6,8 @@ router.route('/')
     .get(CarController.index)
     .post(CarController.newCar);
 
-
 router.route('/:carId')
-    .get(CarController.getCar)
+    .get(CarController.getCarInfo)
     .put(CarController.replaceCar)
     .delete(CarController.deleteCar);
 

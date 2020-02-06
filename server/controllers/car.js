@@ -7,9 +7,9 @@ module.exports = {
         res.status(200).json(car);
     },
 
-    getCar: async (req, res, next) => {
+    getCarInfo: async (req, res, next) => {
         const { carId } = req.params;
-        const car = await Car.findById( carId );
+        const car = await Car.findById( carId ).populate('seller');
         
         if(!car) {
             return res.status(404).json({error: 'Car doesn\'t exist'});
