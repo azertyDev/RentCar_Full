@@ -4,7 +4,7 @@ const LoginController = require('../controllers/login');
 
 
 router.route('/')
-    .get(LoginController.login);
+    .post(LoginController.login);
 
 
 

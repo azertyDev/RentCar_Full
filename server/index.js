@@ -27,6 +27,8 @@ const login = require('../server/routes/login');
 // Middlewares
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}))
+
 // Routes
 app.use('/users', users);
 app.use('/login', login);
