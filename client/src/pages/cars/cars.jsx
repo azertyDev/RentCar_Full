@@ -2,24 +2,27 @@ import React, { Component } from 'react'
 import Dashboard from '../../hoc/dashboard';
 import {connect} from 'react-redux';
 import {cars} from '../../redux/middleware/middleware';
-class Cars extends Component {
+class CarsComponent extends Component {
  componentDidMount(){
      this.props.fetch();
  }
     render() {
         const {pending, fail, data}=this.props.cars;
-        console.log(data)
+        console.log(this.props.users)
         return (
             <div>
-                cars
+                {
+
+                }
             </div>
         )
     }
 }
 
-const mapStateToProps=({cars})=>{
+const mapStateToProps=({cars, users})=>{
     return{
-        cars
+        cars,
+        users
     }
 }
 
@@ -30,5 +33,7 @@ const mapDispatchToProps=(dispatch)=>{
       }
   }
 }
+
+const Cars=connect(mapStateToProps, mapDispatchToProps)(CarsComponent)
 
 export default Dashboard(Cars);
