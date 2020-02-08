@@ -8,10 +8,12 @@ const carSchema = new Schema ({
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
-    client: [{
-        type: Schema.Types.ObjectId,
-        ref: 'client'
-    }]
+    client: {
+        type: Object
+    },
+    rent: {
+        type: Boolean
+    }
 });
 
 const Car = mongoose.model('car', carSchema);

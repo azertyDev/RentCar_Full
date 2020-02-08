@@ -26,6 +26,7 @@ mongoose.connect(config.DATABASE, {
 const login = require('../server/routes/login');
 const users = require('../server/routes/user');
 const cars = require('../server/routes/car');
+const reg = require('../server/routes/reg');
 
 // Middlewares
 app.use(logger('dev'));
@@ -36,6 +37,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use('/login', login);
 app.use('/users', users);
 app.use('/cars', cars);
+app.use('/reg', reg);
 
 
 
