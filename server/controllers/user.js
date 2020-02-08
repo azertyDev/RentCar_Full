@@ -58,9 +58,9 @@ module.exports = {
         await user.remove();
         console.log('3-user:', user);
 
-        await car.remove();
-        console.log('4- car: ', car);
-        console.log('5- car: ', user);
+        if(car) {
+            return await car.remove();
+        }
         
         res.status(200).json(user);
         console.log('USERRRR: ', user);
