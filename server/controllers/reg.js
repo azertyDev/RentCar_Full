@@ -9,7 +9,10 @@ module.exports = {
             user = new User({
                 name: req.body.name,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                client: req.body.client,
+                seller: req.body.seller
+
             });
             await user.save();
             return res.status(200).send(user);
