@@ -41,6 +41,30 @@ module.exports = {
         console.log('UserCars:', user);
         res.status(200).json(user);
     }, 
+
+    deleteUser: async (req, res, next) => {
+        const { userId } = req.params;
+        const user = await User.findById(userId);
+        console.log('0-user', user);
+        if(!user) {
+            return res.status(404).json({ message: 'User doesn\'t exist'});
+        }
+
+        const carId = user.cars;
+        console.log('1-carId: ', carId);
+        const car = await Car.findById(carId);
+        console.log('2- car: ', car);
+
+        await user.remove();
+        console.log('3-user:', user);
+
+        await car.remove();
+        console.log('4- car: ', car);
+        console.log('5- car: ', user);
+        
+        res.status(200).json(user);
+        console.log('USERRRR: ', user);
+    },
     
     newUserCars: async (req, res, next) => {
         const { userId } = req.params;
