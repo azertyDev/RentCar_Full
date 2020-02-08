@@ -19,7 +19,7 @@ module.exports = {
     },
     
     newCar: async (req, res, next) => {
-        const seller = await User.findById(req.body.seller);
+        const seller = await User.findById(req.params.userId);
 
         const newCar = req.body;
         delete newCar.seller;

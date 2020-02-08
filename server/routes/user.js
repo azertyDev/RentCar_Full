@@ -2,18 +2,19 @@ const express = require('express');
 const router = express.Router();
 const UsersController = require('../controllers/user');
 
-// /users
+// GET, POST -> /users
 router.route('/')
     .get(UsersController.index)
     .post(UsersController.newUser);
  
-// /users/:userId
+// GET, PUT, PATCH, DELETE -> /users/:userId
 router.route('/:userId')
     .get(UsersController.getUser)
     .put(UsersController.replaceUser)
-    .patch(UsersController.updateUser);
+    .patch(UsersController.updateUser)
+    .delete(UsersController.deleteUser);
 
-// /users/:userId/cars
+// GET, PUT, POST -> /users/:userId/cars (5e3ab1ec7a809b2d64d66177)
 router.route('/:userId/cars')
     .get(UsersController.getUserCars)
     .post(UsersController.newUserCars);
