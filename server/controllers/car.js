@@ -19,18 +19,25 @@ module.exports = {
     },
     
     newCar: async (req, res, next) => {
-        const seller = await User.findById(req.params.userId);
-
+        const seller = await User.findById(req.body.seller);
+        console.log('Seller:',seller);
         const newCar = req.body;
         delete newCar.seller;
 
         const car = new Car(newCar);
         car.seller = seller;
         await car.save();
-        seller.cars.push(car);
-        await seller.save();
-
-        res.status(201).json(car);
+        
+        if( seller ) {
+            seller.cars.push(car);
+            await seller.save();
+            res.status(201).json(car);
+            console.log('Car:', car);
+        } else {
+            res.json(404).json({
+                message: 'Seller doesn\'t exist'
+            });
+        }
     },
 
     replaceCar: async (req, res, next) => {
@@ -54,10 +61,21 @@ module.exports = {
 
         await car.remove();
 
-        seller.car.pull(car);
-        await seller.save();
+        if(!seller) {
+            res.status(404).json({
+                message: 'Car doesn\'t exist',
+            })
+        } else {
+            seller.cars.pull(car);
+            await seller.save();
+            res.status(200).json({ success: true});
+        }
+    },
 
-        res.status(200).json({ success: true});
+    deleteAllCars: async (req, res, next) => {
+        const cars = await Car.deleteMany();
+
+        console.log('Delete CAR: ->', cars);
     }
 
 }

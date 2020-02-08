@@ -5,6 +5,7 @@ const CarController = require('../controllers/car');
 // GET, POST -> /cars
 router.route('/')
     .get(CarController.index)
+    .delete(CarController.deleteAllCars)
     .post(CarController.newCar);
 
 // GET, PUT, DELETE -> /cars/:carId (5e3ab563155ca12cac47ea83)
