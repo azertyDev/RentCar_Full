@@ -12,8 +12,7 @@ const userSchema = new Schema ({
     cars: [{
         type: Schema.Types.ObjectId,
         ref: 'car'
-    }],
-    token: String
+    }]
 });
 
 

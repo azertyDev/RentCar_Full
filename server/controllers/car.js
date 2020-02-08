@@ -31,7 +31,7 @@ module.exports = {
         if( seller ) {
             seller.cars.push(car);
             await seller.save();
-            res.status(201).json(car);
+            return res.status(201).json(car);
             console.log('Car:', car);
         } else {
             res.json(404).json({
@@ -41,11 +41,14 @@ module.exports = {
     },
 
     replaceCar: async (req, res, next) => {
-        const { carId } = req.params;
-        const newCar = req.body;
-        const result = await Car.findByIdAndUpdate(carId, newCar);
-        console.log('result: ', result);
-        res.status(200).json({ success: true});
+        const { carId } = req.value.params;
+        const newCar = req.value.body;
+        const car = await Car.findByIdAndUpdate(carId, newCar);
+        console.log('result: ', car);
+        res.status(200).json({ 
+            success: true,
+            result: car
+        });
     },
 
     deleteCar: async (req, res, next) => {
@@ -69,6 +72,7 @@ module.exports = {
             seller.cars.pull(car);
             await seller.save();
             res.status(200).json({ success: true});
+            console.log('Delete seller\'s car: ',seller);
         }
     },
 
