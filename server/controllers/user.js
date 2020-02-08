@@ -16,6 +16,7 @@ module.exports = {
     getUser: async (req, res, next) => {
         const { userId } = req.params;
         const user = await User.findById( userId );
+        console.log('USEEEER: -> ', user);
         res.status(200).json(user);
     },
 
@@ -50,20 +51,28 @@ module.exports = {
             return res.status(404).json({ message: 'User doesn\'t exist'});
         }
 
-        const carId = user.cars;
-        console.log('1-carId: ', carId);
-        const car = await Car.findById(carId);
+        const cars = user.cars;
+        console.log('1-carId: ', cars);
+        const car = await Car.findById(cars[0]);
         console.log('2- car: ', car);
-
-        await user.remove();
-        console.log('3-user:', user);
 
         if(car) {
             return await car.remove();
         }
         
+        await user.remove();
+        console.log('3-user:', user);
+
         res.status(200).json(user);
         console.log('USERRRR: ', user);
+    },
+
+    deleteAllUser: async (req, res, next) => {
+        const user = await User.deleteMany();
+
+        console.log('Delete user: -> ', user);
+
+        // await user.remove();
     },
     
     newUserCars: async (req, res, next) => {

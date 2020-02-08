@@ -11,7 +11,8 @@ mongoose.Promise = global.Promise;
 mongoose.connect(config.DATABASE, { 
         useNewUrlParser: true,  
         useUnifiedTopology: true, 
-        useCreateIndex: true,})
+        useCreateIndex: true,
+        useFindAndModify: true})
         .then(() => {
             console.log('MongoDB connected!');
         })
