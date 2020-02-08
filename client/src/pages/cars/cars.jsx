@@ -2,27 +2,28 @@ import React, { Component } from 'react'
 import Dashboard from '../../hoc/dashboard';
 import {connect} from 'react-redux';
 import {cars} from '../../redux/middleware/middleware';
+import obj from '../../functions/normalizer';
+import TableCars from '../../components/tableCars/tableCars';
 class CarsComponent extends Component {
  componentDidMount(){
      this.props.fetch();
  }
     render() {
         const {pending, fail, data}=this.props.cars;
-        console.log(this.props.users)
+     
         return (
             <div>
                 {
-
+                  pending?<h1>Loading...</h1>:<TableCars data={obj.norm(data)}/>
                 }
             </div>
         )
     }
 }
 
-const mapStateToProps=({cars, users})=>{
+const mapStateToProps=({cars})=>{
     return{
-        cars,
-        users
+        cars
     }
 }
 

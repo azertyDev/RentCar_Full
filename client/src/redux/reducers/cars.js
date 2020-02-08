@@ -6,7 +6,7 @@ const initialState={
     data:[]
 }
 
-export const carsReducer=(state=initialState, {type,payload})=>{
+export const carsReducer=(state={...initialState}, {type,payload})=>{
     switch(type){
        case FETCH_CARS:
            return{

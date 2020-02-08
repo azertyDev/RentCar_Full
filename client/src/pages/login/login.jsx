@@ -21,7 +21,7 @@ class NormalLoginForm extends React.Component {
     if(err){
       return <h1>Error!! :(</h1>
     }
-    if(user.email && user.password && user.role === 1){
+    if(user.email && user.password && user.role == 1){
       localStorage.setItem('user', JSON.stringify({email:user.email, role:user.role}));
       return <Redirect to="/users"/>
     }

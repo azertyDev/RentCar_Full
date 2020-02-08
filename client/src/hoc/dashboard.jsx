@@ -34,7 +34,7 @@ const Dashboard = OldComponent => {
         return <Redirect to="/notFound" />;
       }
       return (
-        <Layout style={{height:'100vh'}}>
+        <Layout style={{minHeight:'100vh'}}>
           <Sider
             breakpoint="lg"
             collapsedWidth="0"
@@ -55,7 +55,7 @@ const Dashboard = OldComponent => {
               </Menu.Item>
               <Menu.Item key="2">
               <Link to="/cars">
-                <Icon type="video-camera" />
+                <Icon type="car" />
                 <span className="nav-text">Cars</span>
                 </Link>
               </Menu.Item>
