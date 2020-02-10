@@ -7,7 +7,9 @@ router.route('/')
     .get(UsersController.index)
     .delete(UsersController.deleteAllUser)
     .post(UsersController.newUser);
- 
+
+router.post('/fakeuser', UsersController.newFakeUser);
+
 // GET, PUT, PATCH, DELETE -> /users/:userId
 router.route('/:userId')
     .get(UsersController.getUser)
