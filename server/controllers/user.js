@@ -201,25 +201,27 @@ module.exports = {
     const { userId } = req.params;
     const { car_id, rent } = req.body;
 
-    console.log(rent);
-    console.log(car_id);
+    
 
     const car = await Car.findById(car_id);
     car.rent = rent;
-    console.log(car);
 
     const client = await User.findById(userId);
     car.client = client._id;
     await car.save();
-    client.cars.push(car_id);
-
-    if (client.client == false) {
-      client.client = true;
+    if(rent){
+      client.cars.push(car_id)
+    }else{
+      client.cars.remove(car_id)
+    }
+    console.log(car)
+    const seller=await User.findById(car.seller);
+    if(seller){
+      car.seller=seller
     }
     await client.save();
     return res.json({
-      car,
-      client
+      car
     });
   }
 };

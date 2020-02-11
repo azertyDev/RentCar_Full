@@ -23,7 +23,7 @@ router
 router
   .route("/:userId/cars")
   .get(UsersController.getUserCars)
-  .post(UsersController.rentUserCar)
+  .put(UsersController.rentUserCar)
   .post(UsersController.newUserCars);
 
 module.exports = router;
