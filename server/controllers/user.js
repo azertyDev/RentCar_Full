@@ -199,12 +199,14 @@ module.exports = {
 
   rentUserCar: async (req, res, next) => {
     const { userId } = req.params;
-    const { car_id, rent } = req.body;
+    const { car_id } = req.body;
 
     console.log("Body -> ", req.body);
     const car = await Car.findByIdAndUpdate(car_id, {
-      rent: rent
+      rent: true
     });
+  
+
     console.log("Car -> ", car);
     return res.status(201).json(car);
   }

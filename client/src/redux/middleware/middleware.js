@@ -95,8 +95,11 @@ export const cars = () => {
         url: "/cars",
         method: "GET"
       });
+      console.log('--------------', responce, '---------')
       if (responce.status === 200) {
         dispatch(fetchCarsSuccess(responce.data));
+      }else{
+        dispatch(fetchCarsFail());
       }
     } catch (error) {
       dispatch(fetchCarsFail());
