@@ -203,23 +203,20 @@ module.exports = {
 
     console.log(rent);
     console.log(car_id);
+
     const car = await Car.findById(car_id);
     car.rent = rent;
     console.log(car);
-    const client = await User.findById(userId);
 
+    const client = await User.findById(userId);
     car.client = client._id;
     await car.save();
-
     client.cars.push(car_id);
+
     if (client.client == false) {
       client.client = true;
     }
-
     await client.save();
-
-    // console.log("Car -> ", car);
-    // console.log("user", client);
     return res.json({
       car,
       client

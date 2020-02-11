@@ -4,6 +4,7 @@ class Normalizer{
 
     for(let i=0; i<data.length; i++){
         doc.push({
+            id:data[i]._id,
             model:data[i].model,
             cost:data[i].cost,
             owner:data[i].seller? data[i].seller.name : "NotOwner" 
