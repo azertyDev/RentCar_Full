@@ -63,7 +63,6 @@ module.exports = {
   deleteUser: async (req, res, next) => {
     const { userId } = req.params;
     const user = await User.findById(userId);
-    console.log("0-user", user);
     if (!user) {
       return res.status(404).json({
         message: "User doesn't exist"
@@ -71,19 +70,15 @@ module.exports = {
     }
 
     const cars = user.cars;
-    console.log("1-carId: ", cars);
     const car = await Car.findById(cars[0]);
-    console.log("2- car: ", car);
 
     if (car) {
       return await car.remove();
     }
 
     await user.remove();
-    console.log("3-user:", user);
 
     res.status(200).json(user);
-    console.log("USERRRR: ", user);
   },
 
   deleteAllUser: async (req, res, next) => {
@@ -110,5 +105,17 @@ module.exports = {
     await user.save();
     res.status(201).json(newCar);
     // console.log(newCar);
+  },
+
+  rentUserCar: async (req, res, next) => {
+    const { userId } = req.params;
+    const { car_id, rent } = req.body;
+
+    console.log("Body -> ", req.body);
+    const car = await Car.findByIdAndUpdate(car_id, {
+      rent: rent
+    });
+    console.log("Car -> ", car);
+    return res.status(201).json(car);
   }
 };
