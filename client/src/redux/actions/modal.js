@@ -1,4 +1,4 @@
-import {MODAL_VISIBLE, SLIDE_MODAL_VISIBLE} from '../consts/index';
+import {MODAL_VISIBLE, SLIDE_MODAL_VISIBLE, USER_CAR_MODAL_VISIBLE} from '../consts/index';
 
 export function visibleAc(visible, id){
     return{
@@ -18,4 +18,11 @@ export function visibleSlide(visible, id){
             visible
         }
     }
+}
+
+export function userCarModal(visible){
+  return{
+      type:USER_CAR_MODAL_VISIBLE,
+      payload:visible
+  }
 }

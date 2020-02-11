@@ -1,8 +1,8 @@
-import React from "react";
+import React,{useState} from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Button } from "antd";
-
+import CrudButton from '../crudButton/crudButton';
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, "Too Short!")
@@ -18,10 +18,15 @@ const SignupSchema = Yup.object().shape({
 });
 
 export const Forma = props => {
-  console.log("id", props.user._id);
+ const [num, setNum] = useState(0);
+ const handleChange=(e)=>{
+  if(e.target.name === 'role'){
+    setNum(parseInt(e.target.value))
+  }
+ }
   return (
     <div>
-      <h2>Add User</h2>
+   {!props.user._id?<h2>Add User</h2>:<h2>Edit User</h2>}
       <Formik
         initialValues={{
           name: props.user.name || "",
@@ -41,7 +46,7 @@ export const Forma = props => {
         }}
       >
         {({ errors, touched }) => (
-          <Form>
+          <Form onChange={e=>handleChange(e)}>
             <div className="form_element">
               <label htmlFor="name">Name: </label>
               <Field name="name" />
@@ -74,11 +79,12 @@ export const Forma = props => {
                   <option value="4">4</option>
                 </Field>
               </div>
+              <CrudButton num={num}/>
             </div>
             {!props.addPending && !props.editPending ? (
               <button type="submit">Submit</button>
             ) : (
-              <Button loading={true}></Button>
+              <Button loading={true} style={{width:'100%'}}></Button>
             )}
           </Form>
         )}

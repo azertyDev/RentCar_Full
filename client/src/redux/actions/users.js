@@ -11,7 +11,10 @@ import {
   EDIT_USER,
   EDIT_USER_SUCCESS,
   EDIT_USER_FAIL,
-  READ_USER_SUCCESS
+  READ_USER_SUCCESS,
+  USER_REGISTER,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL
 } from "../consts/index";
 import store from '../store/store';
 import _ from 'lodash';
@@ -59,6 +62,7 @@ export const addUserFail = (id) => {
 };
 // DELETE USER
 export const deleteUser=(id)=>{
+ 
   return{
     type:DELETE_USER,
     payload:id
@@ -103,10 +107,30 @@ export const editUserFail=()=>{
 export const read=(id)=>{
   const users=[..._.get(store.getState(), 'users.data')];
   let findUser=users.find((item)=>{return item._id === id})
-  console.log('findUsre', findUser)
   return{
     type:READ_USER_SUCCESS,
     payload:{...findUser}
+  }
+}
+
+// REGISTER
+
+export const register=()=>{
+  return{
+    type:USER_REGISTER
+  }
+}
+
+export const registerSuccess=(user)=>{
+  return{
+    type:USER_REGISTER_SUCCESS,
+    payload:user
+  }
+}
+
+export const registerFail=()=>{
+  return{
+    type:USER_REGISTER_FAIL
   }
 }
 

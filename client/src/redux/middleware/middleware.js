@@ -12,7 +12,10 @@ import {
   deleteUserFail,
   editUser,
   editUserSuccess,
-  editUserFail
+  editUserFail,
+  register,
+  registerSuccess,
+  registerFail
 } from "../actions/users";
 import { fetchCars, fetchCarsSuccess, fetchCarsFail } from "../actions/cars";
 import {visibleAc} from '../actions/modal';
@@ -53,6 +56,8 @@ export const login = ({ email, password }) => {
       console.log(responce);
       if (responce.status === 200) {
         dispatch(loginUserSuccess(responce.data));
+      }else if(responce.status === 400){
+        dispatch(loginUserFail());
       }
     } catch (error) {
       console.log(error);
@@ -127,7 +132,7 @@ export const add = ({ name, email, password, role }) => {
 // DELETE USER
 
 export const deleteMIdd = id => {
-  console.log("id", id);
+  
   return async dispatch => {
     try {
       dispatch(deleteUser(id));
@@ -135,7 +140,7 @@ export const deleteMIdd = id => {
         url: `/users/${id}`,
         method: "POST"
       });
-      console.log(responce);
+     
     if(responce.status === 200){
       dispatch(deleteUserSuccess(responce.data))
     }
@@ -186,3 +191,32 @@ export const edit = (id, { name, email, password, role }) => {
     }
   };
 };
+
+// USER REGISTER
+
+export const registerMidd=(values)=>{
+  const {name, email,password,client,seller} =values;
+  return async dispatch=>{
+    dispatch(register())
+    try {
+      const responce=await axios({
+         url:'/reg',
+         method:'POST',
+         data:{
+           name,
+           email,
+           password,
+           client,
+           seller
+         }
+      })
+      if(responce.status === 200){
+        dispatch(registerSuccess(responce.data))
+      }else{
+        dispatch(registerFail())
+      }
+    } catch (err) {
+       dispatch(registerFail())
+    }
+  }
+}

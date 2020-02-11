@@ -3,11 +3,7 @@
     background: rgba(255, 255, 255, 0.2);
     margin: 16px;
   }
-  aside{
-    position: sticky !important;
-    z-index: 0;
-    height: 100vh;
-  }
+
 
 @media only screen and (max-width: 500px){
   aside{

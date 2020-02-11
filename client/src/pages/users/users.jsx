@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import Dashboard from "../../hoc/dashboard";
-import { Row, Col, Button } from "antd";
+import { Row, Col, Button, Layout } from "antd";
 import { connect } from "react-redux";
 import { fetch, unfetch, visibleMidd } from "../../redux/middleware/middleware";
-import ModalSlideComponent from '../../components/modal/modalSlide';
+import ModalSlideComponent from "../../components/modal/modalSlide";
 import TableUsers from "../../components/tableUsers/tableUsers";
 import ModalComponent from "../../components/modal/addModal";
 import note from "../../components/notification/notification";
+import "../../components/style.css";
+import AddIcon from "../../images/add.png";
+import Chart from "../../chart/chart";
+import obj from '../../functions/normalizer';
+const { Content } = Layout;
 class UsersComponent extends Component {
   componentDidMount() {
     this.props.fetch();
@@ -18,6 +23,9 @@ class UsersComponent extends Component {
       setTimeout(() => {
         if (snapshot === -1) {
           note.openNotification("Add successfully");
+        }
+        if (snapshot === 1) {
+          note.openNotification("Delete successfully");
         }
       }, 200);
       setTimeout(() => {
@@ -38,36 +46,62 @@ class UsersComponent extends Component {
   getSnapshotBeforeUpdate(prevProps, prevState) {
     const currentUsers = _.get(this.props.users, "data");
     const oldUsers = _.get(prevProps.users, "data");
-    if (oldUsers.length - currentUsers.length === -1 && currentUsers.length >1) {
+    if (
+      oldUsers.length - currentUsers.length === -1 &&
+      currentUsers.length > 1
+    ) {
       return oldUsers.length - currentUsers.length;
     }
-    if (currentUsers.length === oldUsers.length && currentUsers !== oldUsers) {
+    if (oldUsers.length - currentUsers.length === 1) {
+      return oldUsers.length - currentUsers.length;
+    }
+    if (
+      currentUsers.length === oldUsers.length &&
+      currentUsers !== oldUsers &&
+      currentUsers.length > 0
+    ) {
       return "edit";
     }
     return null;
   }
   render() {
     const { pending, fail, data, editFail } = this.props.users;
-
+   
     if (fail) {
-       return <h1>eroror</h1>
+      return <h1>eroror</h1>;
     }
-    if(editFail){
-      note.openNotification('Edit fail')
+    if (editFail) {
+      note.openNotification("Edit fail");
     }
     return (
-      <Row>
-        {pending ? (
-          <h1>Loading ... </h1>
+      <>
+        {!pending ? (
+          <Content>
+            {" "}
+            <Row>
+              <Col md={{ span: 24, offset: 0 }}>
+                <TableUsers data={data} />
+              </Col>
+              <img
+                className="add_icon"
+                onClick={() => this.props.visible(true, null)}
+                alt=" "
+                src={AddIcon}
+                style={{ width: "40px", height: "40px" }}
+              />
+              <ModalComponent />
+              <ModalSlideComponent />
+            </Row>{" "}
+            <Row>
+              <Col md={{ span: 24 }}>
+                <Chart data={obj.chartData(data)} />
+              </Col>
+            </Row>
+          </Content>
         ) : (
-          <Col md={{ span: 24, offset: 0 }}>
-            <TableUsers data={data} />
-          </Col>
+          <span>Loading</span>
         )}
-        <Button onClick={() => this.props.visible(true, null)}>Add User</Button>
-        <ModalComponent />
-        < ModalSlideComponent/>
-      </Row>
+      </>
     );
   }
   componentWillUnmount() {

@@ -47,7 +47,11 @@ export const usersReducer = (state = initialState, { type, payload }) => {
         editPending: false,
         editFail: false,
         addFail: false,
-        deleteFail: false
+        deleteFail: false,
+        deletePending:{
+          pending:false,
+          id:1
+        }
       };
     case FETCH_USERS_FAIL:
       return {
@@ -72,6 +76,7 @@ export const usersReducer = (state = initialState, { type, payload }) => {
         addPending: false
       };
     case DELETE_USER:
+  
       return {
         ...state,
         deletePending: {
@@ -80,7 +85,6 @@ export const usersReducer = (state = initialState, { type, payload }) => {
         }
       };
     case DELETE_USER_SUCCESS:
-      console.log(payload);
       const user = payload;
       const filteredData = state.data.filter(item => {
         return item._id !== user._id;

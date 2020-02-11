@@ -39,8 +39,8 @@ module.exports = {
     getUserCars: async (req, res, next) => {
         const { userId } = req.params;
         const user = await User.findById( userId ).populate('cars');
-        console.log('UserCars:', user);
-        res.status(200).json(user);
+        console.log('UserCars:', user.cars);
+        res.status(200).json(user.cars);
     }, 
 
     deleteUser: async (req, res, next) => {

@@ -1,9 +1,12 @@
 import React from "react";
-import { Table, Button } from "antd";
+import { Table, Button, Icon, Pagination } from "antd";
 import { deleteMIdd, visibleMidd } from "../../redux/middleware/middleware";
 import { read } from "../../redux/actions/users";
 import { connect } from "react-redux";
 import {visibleSlide} from '../../redux/actions/modal';
+import DeleteIcon from '../../images/delete.png';
+import EditIcon from '../../images/edit1.png';
+import _ from 'lodash';
 import '../style.css'
 const TableUsers = props => {
   const columns = [
@@ -25,21 +28,11 @@ const TableUsers = props => {
       render: function(text, record, index) {
         return (
           <span>
-            <Button
-              onClick={(e) =>{props.deleteCom(record._id);  e.stopPropagation();}}
-              style={{ marginRight: "5px" }}
-              loading={
-                props.deletePending === record._id &&
-                props.deletePending.pending
-                  ? true
-                  : false
-              }
-            >
-              Delete
-            </Button>
-            <Button onClick={(e) =>{ props.visible(true, record._id);  e.stopPropagation()}}>
-              Edit
-            </Button>
+          
+            <img  onClick={(e) =>{props.deleteCom(record._id);  e.stopPropagation();}}
+            alt=" " src={DeleteIcon}/>
+             
+           <img src={EditIcon} alt=" " onClick={(e) =>{ props.visible(true, record._id);  e.stopPropagation()}} />
           </span>
         );
       }
@@ -48,7 +41,9 @@ const TableUsers = props => {
   return (
     <React.Fragment>
       <Table
+      style={{marginLeft:'25px'}}
       scroll={{x:600}}
+      pagination={{pageSize:8}}
         columns={columns}
         onRow={(record, rowIndex) => {
           return {
@@ -65,11 +60,8 @@ const TableUsers = props => {
 };
 
 const mapStateToProps = ({ users }) => {
-  const { deletePending } = users;
-  console.log("deletePending", deletePending);
   return {
-    users,
-    deletePending
+    users
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -88,4 +80,4 @@ const mapDispatchToProps = dispatch => {
     }
   };
 };
-export default connect(mapDispatchToProps, mapDispatchToProps)(TableUsers);
+export default connect(mapStateToProps, mapDispatchToProps)(TableUsers);
