@@ -4,26 +4,26 @@ const UsersController = require("../controllers/user");
 
 // GET, POST -> /users
 router
-    .route("/")
-    .get(UsersController.index)
-    .delete(UsersController.deleteAllUser)
-    .post(UsersController.newUser);
+  .route("/")
+  .get(UsersController.index)
+  .delete(UsersController.deleteAllUser)
+  .post(UsersController.newUser);
 
 router.post("/fakeuser", UsersController.newFakeUser);
 
 // GET, PUT, PATCH, DELETE -> /users/:userId
 router
-    .route("/:userId")
-    .get(UsersController.getUser)
-    .put(UsersController.replaceUser)
-    .patch(UsersController.updateUser)
-    .post(UsersController.deleteUser);
+  .route("/:userId")
+  .get(UsersController.getUser)
+  .put(UsersController.replaceUser)
+  .patch(UsersController.updateUser)
+  .post(UsersController.deleteUser);
 
 // GET, PUT, POST -> /users/:userId/cars (5e3ab1ec7a809b2d64d66177)
 router
-    .route("/:userId/cars")
-    .get(UsersController.getUserCars)
-    .put(UsersController.rentUserCar)
-    .post(UsersController.newUserCars);
+  .route("/:userId/cars")
+  .get(UsersController.getUserCars)
+  .post(UsersController.rentUserCar)
+  .post(UsersController.newUserCars);
 
 module.exports = router;
