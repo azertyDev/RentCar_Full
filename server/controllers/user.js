@@ -113,9 +113,22 @@ module.exports = {
 
     console.log("Body -> ", req.body);
     const car = await Car.findByIdAndUpdate(car_id, {
-      rent: rent
+      rent: true
     });
+
+    const client = await User.findById(userId);
+
+    car.client = client._id;
+    await car.save();
+
+    client.cars.push(car_id);
+    await client.save();
+
     console.log("Car -> ", car);
-    return res.status(201).json(car);
+    console.log("user", client);
+    return res.json({
+      car,
+      client
+    });
   }
 };
