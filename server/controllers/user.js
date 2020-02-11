@@ -201,9 +201,10 @@ module.exports = {
     const { userId } = req.params;
     const { car_id, rent } = req.body;
 
-    // console.log("Body -> ", req.body);
+    console.log(rent);
+    console.log(car_id);
     const car = await Car.findById(car_id);
-    car.rent=rent;
+    car.rent = rent;
     console.log(car);
     const client = await User.findById(userId);
 
