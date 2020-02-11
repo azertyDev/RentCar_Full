@@ -60,7 +60,7 @@ export const rent = (id, isRent) => {
       dispatch({ type: CLIENT_RENT_CAR });
       const respoce = await axios({
         url: `/users/${JSON.parse(localStorage.getItem("user"))._id}/cars`,
-        method: "PUT",
+        method: "POST",
         data: {
           car_id: id,
           rent:isRent
