@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const carSchema = new Schema ({
+const carSchema = new Schema({
     model: String,
     cost: String,
     seller: {
@@ -9,10 +9,12 @@ const carSchema = new Schema ({
         ref: 'user'
     },
     client: {
-        type: Object
+        type: Schema.Types.ObjectId,
+        ref: 'user'
     },
     rent: {
-        type: Boolean
+        type: Boolean,
+        default: false
     }
 });
 
