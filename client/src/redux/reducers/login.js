@@ -22,7 +22,8 @@ export const loginReducer=(state={...initialState}, {type, payload})=>{
     case LOGIN_USER_FAIL:
         return{
             ...state,
-            err:true
+            err:true,
+            pending:false
         }
     default:
         return{

@@ -3,6 +3,7 @@ import { Form, Icon, Input, Button, Checkbox, Layout } from 'antd';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {login} from '../../redux/middleware/middleware';
+import {Link} from 'react-router-dom';
 import '../css/login.css';
 class NormalLoginForm extends React.Component {
   handleSubmit = e => {
@@ -17,14 +18,18 @@ class NormalLoginForm extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     let {pending, err, user} =this.props.logins;
-
-    if(err){
-      return <h1>Error!! :(</h1>
-    }
+    localStorage.setItem('user', JSON.stringify(user));
     if(user.email && user.password && user.role === 1){
-      localStorage.setItem('user', JSON.stringify({email:user.email, role:user.role}));
+     
       return <Redirect to="/users"/>
     }
+    if(user.email && user.password && user.role !== 1 && !user.client){
+      return <Redirect to={`/user/${user.name}`}/>
+    }
+    if(user.client){
+      return <Redirect to='/all/cars'/>
+    }
+
     return (
         <Layout style={{display:'flex', alignItems:'center', justifyContent:'center', height:'100vh'}}>
       <Form onSubmit={this.handleSubmit} className="login-form">
@@ -32,6 +37,7 @@ class NormalLoginForm extends React.Component {
           {getFieldDecorator('email', {
             rules: [{ required: true, message: 'Please input your email!' }],
           })(
+            
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
               placeholder="email"
@@ -60,7 +66,8 @@ class NormalLoginForm extends React.Component {
           <Button type="primary" htmlType="submit" className="login-form-button" loading={pending}>
             Log in
           </Button>
-          Or <a href="">register now!</a>
+          {err ? <p>Something wrong Register now </p>:null}
+          Or <Link to="/register">register now!</Link>
         </Form.Item>
       </Form>
       </Layout>

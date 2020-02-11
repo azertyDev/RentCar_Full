@@ -17,7 +17,7 @@ router
     .get(UsersController.getUser)
     .put(UsersController.replaceUser)
     .patch(UsersController.updateUser)
-    .delete(UsersController.deleteUser);
+    .post(UsersController.deleteUser);
 
 // GET, PUT, POST -> /users/:userId/cars (5e3ab1ec7a809b2d64d66177)
 router
